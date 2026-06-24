@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Four chicken recipes with adjustable ingredient quantities.">
+<title>Chicken Recipes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --border: #222;
+    --text: #f0f0f0;
+    --muted: #888;
+    --dim: #555;
+  }
+
+  body {
+    font-family: "Inter", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  nav {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-meta {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .page-header {
+    padding: 2.5rem 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-header h1 {
+    font-size: 1.75rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-header p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .tab-row {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-row::-webkit-scrollbar { display: none; }
+
+  .tab {
+    padding: 1rem 1.5rem;
+    font: 400 13px "Inter", sans-serif;
+    color: var(--muted);
+    background: none;
+    border: none;
+    border-bottom: 1px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s;
+    position: relative;
+    bottom: -1px;
+    flex-shrink: 0;
+  }
+
+  .tab:hover,
+  .tab:focus-visible { color: var(--text); }
+
+  .tab.active {
+    color: var(--text);
+    border-bottom-color: var(--text);
+  }
+
+  .tab:focus-visible,
+  .scaler-btn:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+  }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+  }
+
+  .left {
+    padding: 2rem 1.5rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 0 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .step:last-of-type { border-bottom: none; }
+
+  .step-n {
+    font-size: 11px;
+    color: var(--dim);
+    padding-top: 3px;
+  }
+
+  .step-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  .step-body {
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.75;
+  }
+
+  .optional {
+    margin-top: 2rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+
+  .optional-label,
+  .ing-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  .optional-label { margin-bottom: 6px; }
+
+  .optional p:last-child {
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.7;
+  }
+
+  .right { padding: 2rem 1.5rem; }
+
+  .macros {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .macro {
+    background: var(--surface);
+    padding: 0.9rem 1rem;
+  }
+
+  .macro-val {
+    font-size: 17px;
+    font-weight: 400;
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .macro-key {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .ing-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .scaler {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .scaler-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: none;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .scaler-btn:hover {
+    color: var(--text);
+    border-color: var(--muted);
+  }
+
+  .scaler-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .scaler-val {
+    font-size: 12px;
+    min-width: 48px;
+    text-align: center;
+  }
+
+  .ing-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+  }
+
+  .ing-row:last-child { border-bottom: none; }
+  .ing-name { font-size: 13px; color: #aaa; }
+  .ing-qty { font-size: 12px; white-space: nowrap; }
+
+  footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  footer span { font-size: 12px; color: var(--dim); }
+
+  @media (max-width: 640px) {
+    .content { grid-template-columns: 1fr; }
+    .left {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+    }
+    .right { padding: 1.5rem; }
+    .page-header h1 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Recipes</span>
+  <span class="nav-meta">Chicken · adjustable servings</span>
+</nav>
+
+<header class="page-header">
+  <h1>Chicken recipes</h1>
+  <p>Four recipes, improved and ready to cook.</p>
+</header>
+
+<div class="tab-row" role="tablist" aria-label="Chicken recipes">
+  <button class="tab active" id="tab-teriyaki" role="tab" aria-selected="true" aria-controls="teriyaki" onclick="showRecipe('teriyaki', this)">Teriyaki</button>
+  <button class="tab" id="tab-yogurt" role="tab" aria-selected="false" aria-controls="yogurt" onclick="showRecipe('yogurt', this)">Yogurt &amp; Mustard</button>
+  <button class="tab" id="tab-curry" role="tab" aria-selected="false" aria-controls="curry" onclick="showRecipe('curry', this)">Creamy Curry</button>
+  <button class="tab" id="tab-fajita" role="tab" aria-selected="false" aria-controls="fajita" onclick="showRecipe('fajita', this)">Smoky Fajita</button>
+</div>
+
+<main>
+  <section id="teriyaki" class="panel active" role="tabpanel" aria-labelledby="tab-teriyaki">
+    <div class="content">
+      <div class="left">
+        <div class="step"><span class="step-n">01</span><div><p class="step-title">Mix sauce and slurry separately</p><p class="step-body">Combine soy sauce, honey, rice vinegar, garlic, ginger, and pepper in a bowl. In a separate cup, dissolve cornstarch in cold water. Keep them apart until step 4.</p></div></div>
+        <div class="step"><span class="step-n">02</span><div><p class="step-title">Sear the chicken dry</p><p class="step-body">Pat every piece completely dry. Heat oil over medium-high until shimmering. Sear in batches without crowding, 3–4 min, turning once, until golden and just cooked through. Remove and set aside.</p></div></div>
+        <div class="step"><span class="step-n">03</span><div><p class="step-title">Reduce the sauce in the same pan</p><p class="step-body">Lower to medium. Pour the full sauce into the pan — the browned bits from the chicken dissolve straight into it. Simmer 2–3 min until the garlic smells cooked and the honey begins to thicken.</p></div></div>
+        <div class="step"><span class="step-n">04</span><div><p class="step-title">Thicken, then coat</p><p class="step-body">Stir the slurry and pour into the simmering sauce. It thickens in under 60 seconds. Once glossy and coating a spoon, return the chicken, toss to coat, and pull off the heat immediately.</p></div></div>
+        <div class="step"><span class="step-n">05</span><div><p class="step-title">Garnish and serve</p><p class="step-body">Scatter sesame seeds and green onion. Serve over rice while the glaze is still fluid.</p></div></div>
+        <div class="optional"><p class="optional-label">Optional</p><p>A few drops of toasted sesame oil off the heat adds depth. Chili flakes in the sauce balance the honey's sweetness.</p></div>
+      </div>
+      <aside class="right">
+        <div class="macros"><div class="macro"><span class="macro-val">400</span><span class="macro-key">kcal</span></div><div class="macro"><span class="macro-val">56g</span><span class="macro-key">protein</span></div><div class="macro"><span class="macro-val">8g</span><span class="macro-key">fat</span></div><div class="macro"><span class="macro-val">25g</span><span class="macro-key">carb</span></div></div>
+        <div class="ing-header"><span class="ing-label">Ingredients</span><div class="scaler"><button class="scaler-btn" data-action="decrease" onclick="scaleRecipe('teriyaki', -250)" aria-label="Decrease Teriyaki chicken by 250 grams">−</button><output class="scaler-val" id="teriyaki-chicken" aria-live="polite">1250g</output><button class="scaler-btn" onclick="scaleRecipe('teriyaki', 250)" aria-label="Increase Teriyaki chicken by 250 grams">+</button></div></div>
+        <div class="ingredients">
+          <div class="ing-row"><span class="ing-name">Chicken breast, diced</span><span class="ing-qty" data-base="1250" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Soy sauce</span><span class="ing-qty" data-base="120" data-unit="ml"></span></div>
+          <div class="ing-row"><span class="ing-name">Honey</span><span class="ing-qty" data-base="113" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Rice vinegar</span><span class="ing-qty" data-base="37" data-unit="ml"></span></div>
+          <div class="ing-row"><span class="ing-name">Garlic, minced</span><span class="ing-qty" data-base="23" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Ginger, grated</span><span class="ing-qty" data-base="12" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Cornstarch</span><span class="ing-qty" data-base="16" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Cold water</span><span class="ing-qty" data-base="30" data-unit="ml"></span></div>
+          <div class="ing-row"><span class="ing-name">Neutral oil</span><span class="ing-qty" data-base="15" data-unit="ml"></span></div>
+          <div class="ing-row"><span class="ing-name">Black pepper</span><span class="ing-qty" data-base="2" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Sesame seeds</span><span class="ing-qty" data-base="10" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Green onion</span><span class="ing-qty" data-base="15" data-unit="g"></span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="yogurt" class="panel" role="tabpanel" aria-labelledby="tab-yogurt" hidden>
+    <div class="content">
+      <div class="left">
+        <div class="step"><span class="step-n">01</span><div><p class="step-title">Build the marinade</p><p class="step-body">Whisk yogurt, mustard, olive oil, garlic, half the lemon juice (7ml), salt, pepper, paprika, coriander, and cardamom until smooth. Don't skip the cardamom — it's what makes this dish.</p></div></div>
+        <div class="step"><span class="step-n">02</span><div><p class="step-title">Marinate — minimum 30 minutes</p><p class="step-body">Coat the chicken completely, cover, and refrigerate. The yogurt's lactic acid tenderizes the meat — give it time. You'll taste the difference at 60 min versus 0.</p></div></div>
+        <div class="step"><span class="step-n">03</span><div><p class="step-title">Cook in batches, medium-high</p><p class="step-body">No extra oil needed — the marinade has fat. Hot dry pan, single layer, undisturbed 3–4 min. The yogurt solids form a golden-brown char on the outside — that's exactly what you want. Flip and repeat. Never crowd the pan.</p></div></div>
+        <div class="step"><span class="step-n">04</span><div><p class="step-title">Rest 2 minutes off the heat</p><p class="step-body">Pull the chicken off and let it sit. Carryover heat finishes the center without drying the edges.</p></div></div>
+        <div class="step"><span class="step-n">05</span><div><p class="step-title">Finish with lemon and taste for salt</p><p class="step-body">Squeeze the remaining 7ml lemon juice over the rested chicken. Taste — yogurt mutes salinity as it cooks, so you'll almost always need a pinch more here.</p></div></div>
+        <div class="optional"><p class="optional-label">Optional</p><p>A pinch of turmeric in the marinade adds color with no flavor impact. A yogurt and cucumber sauce on the side adds a cool contrast.</p></div>
+      </div>
+      <aside class="right">
+        <div class="macros"><div class="macro"><span class="macro-val">370</span><span class="macro-key">kcal</span></div><div class="macro"><span class="macro-val">54g</span><span class="macro-key">protein</span></div><div class="macro"><span class="macro-val">12g</span><span class="macro-key">fat</span></div><div class="macro"><span class="macro-val">6g</span><span class="macro-key">carb</span></div></div>
+        <div class="ing-header"><span class="ing-label">Ingredients</span><div class="scaler"><button class="scaler-btn" data-action="decrease" onclick="scaleRecipe('yogurt', -250)" aria-label="Decrease Yogurt and Mustard chicken by 250 grams">−</button><output class="scaler-val" id="yogurt-chicken" aria-live="polite">1250g</output><button class="scaler-btn" onclick="scaleRecipe('yogurt', 250)" aria-label="Increase Yogurt and Mustard chicken by 250 grams">+</button></div></div>
+        <div class="ingredients">
+          <div class="ing-row"><span class="ing-name">Chicken breast, diced</span><span class="ing-qty" data-base="1250" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Plain/Greek yogurt</span><span class="ing-qty" data-base="240" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Mustard (Dijon)</span><span class="ing-qty" data-base="45" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Olive oil</span><span class="ing-qty" data-base="30" data-unit="ml"></span></div>
+          <div class="ing-row"><span class="ing-name">Garlic, minced</span><span class="ing-qty" data-base="30" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Lemon juice (split)</span><span class="ing-qty" data-base="15" data-unit="ml"></span></div>
+          <div class="ing-row"><span class="ing-name">Salt</span><span class="ing-qty" data-base="9" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Black pepper</span><span class="ing-qty" data-base="2" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Smoked paprika</span><span class="ing-qty" data-base="8" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Coriander powder</span><span class="ing-qty" data-base="8" data-unit="g"></span></div>
+          <div class="ing-row"><span class="ing-name">Cardamom</span><span class="ing-qty" data-base="2" data-unit="g"></span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="curry" class="panel" role="tabpanel" aria-labelledby="tab-curry" hidden>
+    <div class="content">
+      <div class="left">
+        <div class="step"><span class="step-n">01</span><div><p class="step-title">Season and sear the chicken</p><p class="step-body">Toss chicken with olive oil, half the curry powder (7g), paprika, salt, and pepper. Heat 14g butter over medium-high and sear until golden. Doesn't need to be fully cooked yet. Remove and set aside.</p></div></div>
+        <div class="step"><span class="step-n">02</span><div><p class="step-title">Brown mushrooms until bone dry</p><p class="step-body">Same pan, no extra fat. Cook undisturbed 2–3 min, then stir. Keep going until all water has evaporated and the edges are golden. Wet mushrooms will break the cream sauce. Remove and set aside.</p></div></div>
+        <div class="step"><span class="step-n">03</span><div><p class="step-title">Deglaze the pan</p><p class="step-body">Pour a splash of broth (~50ml) into the hot pan and scrape up all browned bits with a wooden spoon. Don't skip this — those bits are concentrated flavor.</p></div></div>
+        <div class="step"><span class="step-n">04</span><div><p class="step-title">Bloom spices, then build the base</p><p class="step-body">Add remaining butter (14g). Once melted, add remaining curry powder (7g) and stir 30 seconds until fragrant. Add garlic (30 sec), then onion (5 min) until soft and translucent.</p></div></div>
+        <div class="step"><span class="step-n">05</span><div><p class="step-title">Make the roux</p><p class="step-body">Sprinkle flour over the onions. Stir constantly for 1 full minute until the raw flour smell disappears and the color shifts slightly golden.</p></div></div>
+        <div class="step"><span class="step-n">06</span><div><p class="step-title">Add broth, then cream</p><p class="step-body">Pour in remaining broth gradually, stirring constantly until smooth. Add cream. Simmer gently on medium-low — a hard boil will split the sauce.</p></div></div>
+        <div class="step"><span class="step-n">07</span><div><p class="step-title">Combine, finish, taste for salt</p><p class="step-body">Return chicken and mushrooms to the pan. Simmer on low 3–5 min until the sauce is thick and glossy. Taste before serving — cream mutes salt as it reduces.</p></div></div>
+        <div class="optional"><p class="optional-label">Optional</p><p>Frozen peas at step 7 add color and sweetness. A squeeze of lemon at the end cuts through the richness of the cream.</p></div>
+      </div>
+      <aside class="right">
+        <div class="macros"><div class="macro"><span class="macro-val">520</span><span class="macro-key">kcal</span></div><div class="macro"><span class="macro-val">52g</span><span class="macro-key">protein</span></div><div class="macro"><span class="macro-val">28g</span><span class="macro-key">fat</span></div><div class="macro"><span class="macro-val">12g</span><span class="macro-key">carb</span></div></div>
+        <p class="ing-label">Ingredients</p>
+        <div class="ing-row"><span class="ing-name">Chicken breast, sliced</span><span class="ing-qty">1250g</span></div>
+        <div class="ing-row"><span class="ing-name">Fresh mushrooms</span><span class="ing-qty">400g</span></div>
+        <div class="ing-row"><span class="ing-name">Onion, chopped</span><span class="ing-qty">1 large</span></div>
+        <div class="ing-row"><span class="ing-name">Garlic, minced</span><span class="ing-qty">30g</span></div>
+        <div class="ing-row"><span class="ing-name">Olive oil</span><span class="ing-qty">30ml</span></div>
+        <div class="ing-row"><span class="ing-name">Yellow curry powder</span><span class="ing-qty">14g</span></div>
+        <div class="ing-row"><span class="ing-name">Smoked paprika</span><span class="ing-qty">5g</span></div>
+        <div class="ing-row"><span class="ing-name">All-purpose flour</span><span class="ing-qty">20g</span></div>
+        <div class="ing-row"><span class="ing-name">Chicken broth</span><span class="ing-qty">300ml</span></div>
+        <div class="ing-row"><span class="ing-name">Light cooking cream</span><span class="ing-qty">300ml</span></div>
+        <div class="ing-row"><span class="ing-name">Butter</span><span class="ing-qty">28g</span></div>
+        <div class="ing-row"><span class="ing-name">Salt / pepper</span><span class="ing-qty">9g / 2g</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="fajita" class="panel" role="tabpanel" aria-labelledby="tab-fajita" hidden>
+    <div class="content">
+      <div class="left">
+        <div class="step"><span class="step-n">01</span><div><p class="step-title">Mix the spice blend</p><p class="step-body">Combine paprika, cumin, chili powder, garlic powder, oregano, salt, and pepper in a small bowl. Set aside — don't touch the chicken yet.</p></div></div>
+        <div class="step"><span class="step-n">02</span><div><p class="step-title">Preheat the pan first</p><p class="step-body">Largest skillet or wok, high heat, full 2 minutes before anything goes in. A drop of water should evaporate on contact. A warm pan means steaming regardless of everything else you do right.</p></div></div>
+        <div class="step"><span class="step-n">03</span><div><p class="step-title">Dry and coat right before cooking</p><p class="step-body">Pat chicken strips completely dry. Toss with half the olive oil and the full spice blend just before it goes in the pan — not minutes earlier. Spices sitting on wet protein turn acrid at high heat.</p></div></div>
+        <div class="step"><span class="step-n">04</span><div><p class="step-title">Sear chicken — don't stir</p><p class="step-body">Single layer, undisturbed 2–3 min. A crust needs to form while it sits still. Toss once, cook another 1–2 min. Remove and set aside.</p></div></div>
+        <div class="step"><span class="step-n">05</span><div><p class="step-title">Cook vegetables separately</p><p class="step-body">Toss peppers and onions in remaining olive oil and a pinch of salt. Same hot pan, 3–4 min, stirring occasionally, until softened with some char. Adding them with the chicken drops the pan temperature and causes steaming.</p></div></div>
+        <div class="step"><span class="step-n">06</span><div><p class="step-title">Combine off the heat</p><p class="step-body">Return chicken to the pan, pull off the burner, squeeze lime juice over everything. Off-heat acid stays bright — on-heat acid goes flat. Scatter coriander and serve immediately.</p></div></div>
+        <div class="optional"><p class="optional-label">Optional</p><p>Char tortillas in the same dry pan while the chicken rests. Swap 2–3g chili powder for chipotle powder for smokier heat.</p></div>
+      </div>
+      <aside class="right">
+        <div class="macros"><div class="macro"><span class="macro-val">360</span><span class="macro-key">kcal</span></div><div class="macro"><span class="macro-val">53g</span><span class="macro-key">protein</span></div><div class="macro"><span class="macro-val">13g</span><span class="macro-key">fat</span></div><div class="macro"><span class="macro-val">10g</span><span class="macro-key">carb</span></div></div>
+        <p class="ing-label">Ingredients</p>
+        <div class="ing-row"><span class="ing-name">Chicken breast, strips</span><span class="ing-qty">1250g</span></div>
+        <div class="ing-row"><span class="ing-name">Bell peppers, sliced</span><span class="ing-qty">3 large</span></div>
+        <div class="ing-row"><span class="ing-name">Red/yellow onion</span><span class="ing-qty">2 large</span></div>
+        <div class="ing-row"><span class="ing-name">Olive oil</span><span class="ing-qty">45ml</span></div>
+        <div class="ing-row"><span class="ing-name">Smoked paprika</span><span class="ing-qty">12g</span></div>
+        <div class="ing-row"><span class="ing-name">Ground cumin</span><span class="ing-qty">12g</span></div>
+        <div class="ing-row"><span class="ing-name">Chili powder</span><span class="ing-qty">8g</span></div>
+        <div class="ing-row"><span class="ing-name">Garlic powder</span><span class="ing-qty">12g</span></div>
+        <div class="ing-row"><span class="ing-name">Dried oregano</span><span class="ing-qty">4g</span></div>
+        <div class="ing-row"><span class="ing-name">Salt / pepper</span><span class="ing-qty">9g / 2g</span></div>
+        <div class="ing-row"><span class="ing-name">Fresh lime juice</span><span class="ing-qty">30ml</span></div>
+        <div class="ing-row"><span class="ing-name">Fresh coriander</span><span class="ing-qty">to taste</span></div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>250g raw chicken per serving</span>
+  <span>4 recipes</span>
+</footer>
+
+<script>
+  const BASE_CHICKEN_GRAMS = 1250;
+  const MIN_CHICKEN_GRAMS = 250;
+  const recipeAmounts = {
+    teriyaki: BASE_CHICKEN_GRAMS,
+    yogurt: BASE_CHICKEN_GRAMS
+  };
+
+  function showRecipe(id, button) {
+    document.querySelectorAll(".panel").forEach((panel) => {
+      const active = panel.id === id;
+      panel.classList.toggle("active", active);
+      panel.hidden = !active;
+    });
+
+    document.querySelectorAll(".tab").forEach((tab) => {
+      const active = tab === button;
+      tab.classList.toggle("active", active);
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+  }
+
+  function formatAmount(value) {
+    return new Intl.NumberFormat("en", {
+      maximumFractionDigits: 1
+    }).format(Math.round(value * 10) / 10);
+  }
+
+  function renderIngredients(recipeId) {
+    const panel = document.getElementById(recipeId);
+    const chickenGrams = recipeAmounts[recipeId];
+    const ratio = chickenGrams / BASE_CHICKEN_GRAMS;
+
+    document.getElementById(`${recipeId}-chicken`).textContent = `${chickenGrams}g`;
+
+    panel.querySelectorAll(".ing-qty[data-base]").forEach((quantity) => {
+      const scaledAmount = Number(quantity.dataset.base) * ratio;
+      quantity.textContent = `${formatAmount(scaledAmount)}${quantity.dataset.unit}`;
+    });
+
+    const decreaseButton = panel.querySelector('[data-action="decrease"]');
+    decreaseButton.disabled = chickenGrams <= MIN_CHICKEN_GRAMS;
+  }
+
+  function scaleRecipe(recipeId, change) {
+    recipeAmounts[recipeId] = Math.max(
+      MIN_CHICKEN_GRAMS,
+      recipeAmounts[recipeId] + change
+    );
+    renderIngredients(recipeId);
+  }
+
+  Object.keys(recipeAmounts).forEach(renderIngredients);
+</script>
+</body>
+</html>
