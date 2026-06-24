@@ -36,12 +36,14 @@ body {
 }
 
 button,
-input {
+input,
+textarea {
   font: inherit;
 }
 
 button,
-input {
+input,
+textarea {
   color: inherit;
 }
 
@@ -554,6 +556,104 @@ p {
   border-radius: var(--radius-md);
   background: var(--surface);
   overflow: hidden;
+}
+
+.recipe-sidebar {
+  display: grid;
+  gap: 1rem;
+}
+
+.notes-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.notes-card__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.notes-card__header h2 {
+  margin-top: 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 450;
+}
+
+.notes-card__status {
+  max-width: 150px;
+  color: var(--dim);
+  font-size: 0.62rem;
+  line-height: 1.45;
+  text-align: right;
+}
+
+.notes-card__status--error {
+  color: #ff9c91;
+}
+
+.notes-card__field {
+  display: block;
+  padding: 1.15rem 1.15rem 0;
+}
+
+.notes-card textarea {
+  width: 100%;
+  min-height: 130px;
+  display: block;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: 0;
+  background: #101010;
+  padding: 0.85rem;
+  color: var(--text);
+  font-size: 0.78rem;
+  line-height: 1.65;
+  transition: border-color 160ms ease;
+}
+
+.notes-card textarea:focus {
+  border-color: var(--border-strong);
+}
+
+.notes-card textarea::placeholder {
+  color: var(--dim);
+}
+
+.notes-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.15rem 1.15rem;
+  color: var(--dim);
+  font-size: 0.62rem;
+}
+
+.notes-save-button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: var(--radius-sm);
+  background: var(--text);
+  color: #111;
+  cursor: pointer;
+  padding: 0 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 550;
+}
+
+.notes-save-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
 
 .ingredients-card__header {

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Clock3, Gauge, Users } from "lucide-react";
 import { IngredientScaler } from "@/components/ingredient-scaler";
 import { RecipeCard } from "@/components/recipe-card";
+import { RecipeNotes } from "@/components/recipe-notes";
 import { getRecipe, recipes } from "@/lib/recipes";
 
 type RecipePageProps = {
@@ -81,12 +82,15 @@ export default async function RecipePage({ params }: RecipePageProps) {
 
           <div className="recipe-layout">
             <aside className="recipe-layout__ingredients">
-              <IngredientScaler
-                baseServings={recipe.baseServings}
-                chickenGrams={recipe.chickenGrams}
-                ingredients={recipe.ingredients}
-                recipeTitle={recipe.title}
-              />
+              <div className="recipe-sidebar">
+                <IngredientScaler
+                  baseServings={recipe.baseServings}
+                  chickenGrams={recipe.chickenGrams}
+                  ingredients={recipe.ingredients}
+                  recipeTitle={recipe.title}
+                />
+                <RecipeNotes recipeSlug={recipe.slug} />
+              </div>
             </aside>
 
             <section className="method" aria-labelledby="method-heading">

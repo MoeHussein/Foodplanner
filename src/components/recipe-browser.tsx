@@ -2,38 +2,37 @@
 
 import { useMemo, useState } from "react";
 import { Search, X } from "lucide-react";
-import type { Category, Recipe } from "@/lib/recipes";
+import type { FoodType, Recipe } from "@/lib/recipes";
 import { RecipeCard } from "@/components/recipe-card";
 
 type RecipeBrowserProps = {
   recipes: Recipe[];
-  categories: Category[];
+  foodTypes: FoodType[];
 };
 
 export function RecipeBrowser({
   recipes,
-  categories,
+  foodTypes,
 }: RecipeBrowserProps) {
   const [query, setQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeFoodType, setActiveFoodType] = useState("all");
 
   const filteredRecipes = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
     return recipes.filter((recipe) => {
-      const matchesCategory =
-        activeCategory === "all" ||
-        recipe.categories.includes(activeCategory);
+      const matchesFoodType =
+        activeFoodType === "all" || recipe.foodType === activeFoodType;
       const matchesQuery =
         normalizedQuery.length === 0 ||
-        [recipe.title, recipe.description, recipe.type]
+        [recipe.title, recipe.description, recipe.type, recipe.foodType]
           .join(" ")
           .toLowerCase()
           .includes(normalizedQuery);
 
-      return matchesCategory && matchesQuery;
+      return matchesFoodType && matchesQuery;
     });
-  }, [activeCategory, query, recipes]);
+  }, [activeFoodType, query, recipes]);
 
   return (
     <section className="browse-section" id="recipes" aria-labelledby="recipes-heading">
@@ -70,24 +69,24 @@ export function RecipeBrowser({
           ) : null}
         </label>
 
-        <div className="category-scroller" aria-label="Filter by category">
+        <div className="category-scroller" aria-label="Filter by food type">
           <button
             type="button"
             className="filter-chip"
-            aria-pressed={activeCategory === "all"}
-            onClick={() => setActiveCategory("all")}
+            aria-pressed={activeFoodType === "all"}
+            onClick={() => setActiveFoodType("all")}
           >
             All
           </button>
-          {categories.map((category) => (
+          {foodTypes.map((foodType) => (
             <button
               type="button"
               className="filter-chip"
-              aria-pressed={activeCategory === category.slug}
-              key={category.slug}
-              onClick={() => setActiveCategory(category.slug)}
+              aria-pressed={activeFoodType === foodType.slug}
+              key={foodType.slug}
+              onClick={() => setActiveFoodType(foodType.slug)}
             >
-              {category.label}
+              {foodType.label}
             </button>
           ))}
         </div>
@@ -107,7 +106,7 @@ export function RecipeBrowser({
             type="button"
             onClick={() => {
               setQuery("");
-              setActiveCategory("all");
+              setActiveFoodType("all");
             }}
           >
             Reset filters

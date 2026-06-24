@@ -4,39 +4,39 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { RecipeCard } from "@/components/recipe-card";
 import {
-  categories,
-  getCategory,
-  getRecipesByCategory,
+  foodTypes,
+  getFoodType,
+  getRecipesByFoodType,
 } from "@/lib/recipes";
 
-type CategoryPageProps = {
+type FoodTypePageProps = {
   params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
-  return categories.map((category) => ({ slug: category.slug }));
+  return foodTypes.map((foodType) => ({ slug: foodType.slug }));
 }
 
 export async function generateMetadata({
   params,
-}: CategoryPageProps): Promise<Metadata> {
+}: FoodTypePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategory(slug);
+  const foodType = getFoodType(slug);
 
-  return category
-    ? { title: category.label, description: category.description }
-    : { title: "Category not found" };
+  return foodType
+    ? { title: foodType.label, description: foodType.description }
+    : { title: "Food type not found" };
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export default async function FoodTypePage({ params }: FoodTypePageProps) {
   const { slug } = await params;
-  const category = getCategory(slug);
+  const foodType = getFoodType(slug);
 
-  if (!category) {
+  if (!foodType) {
     notFound();
   }
 
-  const categoryRecipes = getRecipesByCategory(slug);
+  const matchingRecipes = getRecipesByFoodType(slug);
 
   return (
     <div className="listing-page">
@@ -46,14 +46,17 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <ArrowLeft aria-hidden="true" size={17} />
             All recipes
           </Link>
-          <p className="eyebrow">Category</p>
-          <h1>{category.label}</h1>
-          <p>{category.description}</p>
+          <p className="eyebrow">Food type</p>
+          <h1>{foodType.label}</h1>
+          <p>{foodType.description}</p>
         </div>
       </header>
-      <section className="container listing-content" aria-label={`${category.label} recipes`}>
+      <section
+        className="container listing-content"
+        aria-label={`${foodType.label} recipes`}
+      >
         <div className="recipe-grid">
-          {categoryRecipes.map((recipe) => (
+          {matchingRecipes.map((recipe) => (
             <RecipeCard key={recipe.slug} recipe={recipe} />
           ))}
         </div>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 import { RecipeBrowser } from "@/components/recipe-browser";
-import { categories, recipes } from "@/lib/recipes";
+import { foodTypes, recipes } from "@/lib/recipes";
 
 export default function HomePage() {
   return (
@@ -20,32 +20,33 @@ export default function HomePage() {
               <ArrowDown aria-hidden="true" size={17} />
             </Link>
             <span className="home-hero__count">
-              {recipes.length} recipes · {categories.length} categories
+              {recipes.length} recipes · {foodTypes.length}{" "}
+              {foodTypes.length === 1 ? "food type" : "food types"}
             </span>
           </div>
         </div>
       </section>
 
       <div className="container">
-        <section className="category-directory" aria-labelledby="category-heading">
+        <section className="category-directory" aria-labelledby="food-type-heading">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Browse by need</p>
-              <h2 id="category-heading">Recipe categories</h2>
+              <p className="eyebrow">Browse by ingredient</p>
+              <h2 id="food-type-heading">Food types</h2>
             </div>
           </div>
           <div className="category-grid">
-            {categories.map((category) => (
+            {foodTypes.map((foodType) => (
               <Link
                 className="category-card"
-                href={`/categories/${category.slug}/`}
-                key={category.slug}
+                href={`/food-types/${foodType.slug}/`}
+                key={foodType.slug}
               >
-                <span>{category.label}</span>
+                <span>{foodType.label}</span>
                 <span>
                   {
-                    recipes.filter((recipe) =>
-                      recipe.categories.includes(category.slug),
+                    recipes.filter(
+                      (recipe) => recipe.foodType === foodType.slug,
                     ).length
                   }
                 </span>
@@ -53,7 +54,7 @@ export default function HomePage() {
             ))}
           </div>
         </section>
-        <RecipeBrowser recipes={recipes} categories={categories} />
+        <RecipeBrowser recipes={recipes} foodTypes={foodTypes} />
       </div>
     </>
   );

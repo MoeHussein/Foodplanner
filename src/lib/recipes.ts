@@ -15,7 +15,7 @@ export type Recipe = {
   shortTitle: string;
   description: string;
   type: string;
-  categories: string[];
+  foodType: string;
   duration: number;
   difficulty: "Easy" | "Medium";
   baseServings: number;
@@ -31,32 +31,18 @@ export type Recipe = {
   optional: string;
 };
 
-export type Category = {
+export type FoodType = {
   slug: string;
   label: string;
   description: string;
 };
 
-export const categories: Category[] = [
+export const foodTypes: FoodType[] = [
   {
-    slug: "high-protein",
-    label: "High protein",
-    description: "Chicken-forward meals with more than 50g protein per serving.",
-  },
-  {
-    slug: "weeknight",
-    label: "Weeknight",
-    description: "Straightforward recipes built for ordinary busy evenings.",
-  },
-  {
-    slug: "meal-prep",
-    label: "Meal prep",
-    description: "Recipes that scale cleanly and hold up well for planned meals.",
-  },
-  {
-    slug: "one-pan",
-    label: "One pan",
-    description: "Full-flavor dinners with less washing up afterward.",
+    slug: "boneless-chicken",
+    label: "Boneless chicken",
+    description:
+      "Recipes made with boneless chicken breast or thigh, cut for quick and even cooking.",
   },
 ];
 
@@ -68,7 +54,7 @@ export const recipes: Recipe[] = [
     description:
       "Golden chicken coated in a balanced soy, honey, ginger, and garlic glaze.",
     type: "Chicken",
-    categories: ["high-protein", "weeknight", "meal-prep", "one-pan"],
+    foodType: "boneless-chicken",
     duration: 30,
     difficulty: "Easy",
     baseServings: 5,
@@ -120,7 +106,7 @@ export const recipes: Recipe[] = [
     description:
       "Tender marinated chicken with Dijon, lemon, warm cardamom, and a golden yogurt char.",
     type: "Chicken",
-    categories: ["high-protein", "weeknight", "meal-prep"],
+    foodType: "boneless-chicken",
     duration: 45,
     difficulty: "Easy",
     baseServings: 5,
@@ -171,7 +157,7 @@ export const recipes: Recipe[] = [
     description:
       "A deeply savory chicken and mushroom curry with a silky, gently spiced cream sauce.",
     type: "Chicken",
-    categories: ["high-protein", "meal-prep", "one-pan"],
+    foodType: "boneless-chicken",
     duration: 45,
     difficulty: "Medium",
     baseServings: 5,
@@ -232,7 +218,7 @@ export const recipes: Recipe[] = [
     description:
       "High-heat chicken, charred peppers, and lime with a smoky cumin and paprika spice blend.",
     type: "Chicken",
-    categories: ["high-protein", "weeknight", "meal-prep", "one-pan"],
+    foodType: "boneless-chicken",
     duration: 30,
     difficulty: "Easy",
     baseServings: 5,
@@ -288,10 +274,10 @@ export function getRecipe(slug: string) {
   return recipes.find((recipe) => recipe.slug === slug);
 }
 
-export function getCategory(slug: string) {
-  return categories.find((category) => category.slug === slug);
+export function getFoodType(slug: string) {
+  return foodTypes.find((foodType) => foodType.slug === slug);
 }
 
-export function getRecipesByCategory(slug: string) {
-  return recipes.filter((recipe) => recipe.categories.includes(slug));
+export function getRecipesByFoodType(slug: string) {
+  return recipes.filter((recipe) => recipe.foodType === slug);
 }
