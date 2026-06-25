@@ -14,6 +14,8 @@ export type Recipe = {
   title: string;
   shortTitle: string;
   description: string;
+  image: string;
+  imageAlt: string;
   type: string;
   foodType: string;
   duration: number;
@@ -68,6 +70,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Teriyaki",
     description:
       "Golden chicken coated in a balanced soy, honey, ginger, and garlic glaze.",
+    image: "/images/recipes/teriyaki-chicken.webp",
+    imageAlt:
+      "Glossy teriyaki chicken finished with sesame seeds and green onion on a dark plate.",
     type: "Chicken",
     foodType: "boneless-chicken",
     duration: 30,
@@ -122,6 +127,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Yogurt & mustard",
     description:
       "Tender marinated chicken with Dijon, lemon, warm cardamom, and a golden yogurt char.",
+    image: "/images/recipes/yogurt-mustard-chicken.webp",
+    imageAlt:
+      "Golden yogurt and mustard chicken with lemon and herbs on a dark plate.",
     type: "Chicken",
     foodType: "boneless-chicken",
     duration: 45,
@@ -175,6 +183,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Creamy curry",
     description:
       "A deeply savory chicken and mushroom curry with a silky, gently spiced cream sauce.",
+    image: "/images/recipes/creamy-chicken-curry.webp",
+    imageAlt:
+      "Creamy golden chicken and mushroom curry in a shallow black bowl.",
     type: "Chicken",
     foodType: "boneless-chicken",
     duration: 45,
@@ -238,6 +249,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Smoky fajita",
     description:
       "High-heat chicken, charred peppers, and lime with a smoky cumin and paprika spice blend.",
+    image: "/images/recipes/smoky-chicken-fajitas.webp",
+    imageAlt:
+      "Smoky chicken fajitas with charred peppers, onion, lime, and coriander.",
     type: "Chicken",
     foodType: "boneless-chicken",
     duration: 30,
@@ -297,6 +311,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Lemon ginger",
     description:
       "A bright citrus wellness shot blended with fresh ginger, turmeric, and black pepper.",
+    image: "/images/recipes/lemon-ginger-anti-inflammatory-shot.webp",
+    imageAlt:
+      "Golden lemon ginger wellness shot with citrus, ginger, turmeric, and black pepper.",
     type: "Wellness shot",
     foodType: "juices",
     duration: 10,
@@ -337,6 +354,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Pineapple mint",
     description:
       "A tropical pineapple shot sharpened with lemon and ginger and cooled with fresh mint.",
+    image: "/images/recipes/pineapple-mint-ginger-shot.webp",
+    imageAlt:
+      "Pineapple mint ginger wellness shot with fresh pineapple, mint, lemon, and ginger.",
     type: "Wellness shot",
     foodType: "juices",
     duration: 10,
@@ -376,6 +396,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Berry beet",
     description:
       "An earthy-sweet blend of beet, strawberry, orange, and lemon.",
+    image: "/images/recipes/berry-beet-energy-shot.webp",
+    imageAlt:
+      "Ruby berry beet wellness shot with beets, strawberries, orange, and lemon.",
     type: "Wellness shot",
     foodType: "juices",
     duration: 10,
@@ -420,6 +443,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Turmeric",
     description:
       "A vivid carrot, orange, lemon, ginger, and turmeric blend with a clean citrus finish.",
+    image: "/images/recipes/turmeric-wellness-shot.webp",
+    imageAlt:
+      "Orange turmeric wellness shot with carrots, citrus, ginger, and turmeric root.",
     type: "Wellness shot",
     foodType: "juices",
     duration: 10,
@@ -460,6 +486,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Ginger turmeric",
     description:
       "A concentrated ginger-forward shot balanced with citrus and fresh turmeric.",
+    image: "/images/recipes/ginger-turmeric-wellness-shot.webp",
+    imageAlt:
+      "Golden ginger turmeric wellness shot surrounded by ginger root and citrus.",
     type: "Wellness shot",
     foodType: "juices",
     duration: 10,
@@ -499,6 +528,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Fire cider",
     description:
       "A punchy pineapple and apple cider vinegar shot with garlic, ginger, turmeric, cayenne, and lemon.",
+    image: "/images/recipes/fire-cider-wellness-shot.webp",
+    imageAlt:
+      "Red-orange fire cider wellness shot with pineapple, garlic, ginger, turmeric, and lemon.",
     type: "Wellness shot",
     foodType: "juices",
     duration: 10,
@@ -540,6 +572,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Beet",
     description:
       "A simple ruby-red blend of beet, orange, lemon, and fresh ginger.",
+    image: "/images/recipes/beet-wellness-shot.webp",
+    imageAlt:
+      "Deep ruby beet wellness shot with beets, orange, lemon, and fresh ginger.",
     type: "Wellness shot",
     foodType: "juices",
     duration: 10,
@@ -579,6 +614,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Green wellness",
     description:
       "A fresh green blend of apple, celery, cucumber, parsley, spinach, lemon, and matcha.",
+    image: "/images/recipes/energy-boosting-green-wellness-shot.webp",
+    imageAlt:
+      "Green wellness shot with apple, celery, cucumber, leafy greens, lemon, and matcha.",
     type: "Wellness shot",
     foodType: "juices",
     duration: 10,
@@ -621,6 +659,9 @@ export const recipes: Recipe[] = [
     shortTitle: "Apple cider vinegar",
     description:
       "A sweet-tart pineapple and lemon shot warmed with ginger and cinnamon.",
+    image: "/images/recipes/apple-cider-vinegar-wellness-shot.webp",
+    imageAlt:
+      "Golden apple cider vinegar wellness shot with pineapple, lemon, ginger, cinnamon, and honey.",
     type: "Wellness shot",
     foodType: "juices",
     duration: 10,

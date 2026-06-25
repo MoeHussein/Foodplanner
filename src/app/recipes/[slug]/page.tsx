@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Clock3, Gauge, Users } from "lucide-react";
 import { IngredientScaler } from "@/components/ingredient-scaler";
 import { RecipeCard } from "@/components/recipe-card";
+import { RecipeImage } from "@/components/recipe-image";
 import { RecipeNotes } from "@/components/recipe-notes";
 import { getRecipe, recipes } from "@/lib/recipes";
 
@@ -56,6 +57,13 @@ export default async function RecipePage({ params }: RecipePageProps) {
               <ArrowLeft aria-hidden="true" size={17} />
               All recipes
             </Link>
+            <div className="recipe-hero__banner">
+              <RecipeImage
+                priority
+                recipe={recipe}
+                sizes="(min-width: 1180px) 1180px, 100vw"
+              />
+            </div>
             <p className="eyebrow">{recipe.type}</p>
             <h1>{recipe.title}</h1>
             <p className="recipe-hero__description">{recipe.description}</p>
