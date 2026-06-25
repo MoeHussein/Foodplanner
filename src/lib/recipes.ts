@@ -309,9 +309,9 @@ export const recipes: Recipe[] = [
     ingredients: [
       { name: "Oranges", amount: 2, unit: "" },
       { name: "Lemons", amount: 2, unit: "" },
-      { name: "Fresh ginger root", amount: 5, unit: "inches" },
-      { name: "Fresh turmeric root", amount: 2, unit: "to 3 inches" },
-      { name: "Black pepper", amount: 0.25, unit: "tsp" },
+      { name: "Fresh ginger root", amount: 13, unit: "cm" },
+      { name: "Fresh turmeric root", amount: 5, unit: "to 8 cm" },
+      { name: "Black pepper", amount: 1.25, unit: "ml" },
       { name: "Coconut water", unit: "as needed" },
     ],
     steps: [
@@ -347,10 +347,10 @@ export const recipes: Recipe[] = [
     scaleUnit: "batch",
     scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
     ingredients: [
-      { name: "Pineapple chunks", amount: 4, unit: "cups" },
-      { name: "Fresh mint leaves", amount: 0.5, unit: "cup" },
+      { name: "Pineapple chunks", amount: 660, unit: "g" },
+      { name: "Fresh mint leaves", amount: 15, unit: "g" },
       { name: "Lemon", amount: 1, unit: "" },
-      { name: "Fresh ginger root", amount: 5, unit: "inches" },
+      { name: "Fresh ginger root", amount: 13, unit: "cm" },
       { name: "Coconut water", unit: "as needed" },
     ],
     steps: [
@@ -387,7 +387,7 @@ export const recipes: Recipe[] = [
     scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
     ingredients: [
       { name: "Beets", amount: 2, unit: "" },
-      { name: "Strawberries", amount: 2, unit: "cups" },
+      { name: "Strawberries", amount: 300, unit: "g" },
       { name: "Lemon", amount: 1, unit: "" },
       { name: "Orange", amount: 1, unit: "" },
       { name: "Water", unit: "as needed" },
@@ -433,8 +433,8 @@ export const recipes: Recipe[] = [
       { name: "Orange", amount: 1, unit: "" },
       { name: "Lemon", amount: 1, unit: "" },
       { name: "Carrots", amount: 3, unit: "" },
-      { name: "Fresh ginger root", amount: 2, unit: "inches" },
-      { name: "Fresh turmeric root", amount: 2, unit: "inches" },
+      { name: "Fresh ginger root", amount: 5, unit: "cm" },
+      { name: "Fresh turmeric root", amount: 5, unit: "cm" },
       { name: "Water", unit: "as needed" },
     ],
     steps: [
@@ -470,11 +470,11 @@ export const recipes: Recipe[] = [
     scaleUnit: "batch",
     scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
     ingredients: [
-      { name: "Water", amount: 1, unit: "cup" },
+      { name: "Water", amount: 240, unit: "ml" },
       { name: "Lemons", amount: 2, unit: "" },
       { name: "Orange", amount: 1, unit: "" },
-      { name: "Fresh ginger root", amount: 1, unit: "lb" },
-      { name: "Fresh turmeric root", amount: 2, unit: "inches" },
+      { name: "Fresh ginger root", amount: 454, unit: "g" },
+      { name: "Fresh turmeric root", amount: 5, unit: "cm" },
     ],
     steps: [
       {
@@ -509,13 +509,13 @@ export const recipes: Recipe[] = [
     scaleUnit: "batch",
     scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
     ingredients: [
-      { name: "Apple cider vinegar", amount: 0.5, unit: "cup" },
-      { name: "Pineapple chunks", amount: 1, unit: "cup" },
+      { name: "Apple cider vinegar", amount: 120, unit: "ml" },
+      { name: "Pineapple chunks", amount: 165, unit: "g" },
       { name: "Garlic", amount: 2, unit: "to 3 cloves" },
-      { name: "Fresh ginger root", amount: 2, unit: "inches" },
-      { name: "Fresh turmeric root", amount: 2, unit: "inches" },
-      { name: "Cayenne pepper", amount: 0.25, unit: "tsp" },
-      { name: "Lemon juice", amount: 1, unit: "tbsp" },
+      { name: "Fresh ginger root", amount: 5, unit: "cm" },
+      { name: "Fresh turmeric root", amount: 5, unit: "cm" },
+      { name: "Cayenne pepper", amount: 1.25, unit: "ml" },
+      { name: "Lemon juice", amount: 15, unit: "ml" },
     ],
     steps: [
       {
@@ -553,7 +553,7 @@ export const recipes: Recipe[] = [
       { name: "Beets", amount: 2, unit: "" },
       { name: "Orange", amount: 1, unit: "" },
       { name: "Lemon", amount: 1, unit: "" },
-      { name: "Fresh ginger root", amount: 2, unit: "inches" },
+      { name: "Fresh ginger root", amount: 5, unit: "cm" },
       { name: "Water", unit: "as needed" },
     ],
     steps: [
@@ -592,11 +592,11 @@ export const recipes: Recipe[] = [
       { name: "Green apple", amount: 1, unit: "" },
       { name: "Celery stalks", amount: 3, unit: "" },
       { name: "Cucumber", amount: 1, unit: "" },
-      { name: "Fresh parsley", amount: 0.5, unit: "cup" },
-      { name: "Spinach", amount: 1, unit: "cup" },
-      { name: "Coconut water", amount: 1, unit: "cup" },
+      { name: "Fresh parsley", amount: 30, unit: "g" },
+      { name: "Spinach", amount: 30, unit: "g" },
+      { name: "Coconut water", amount: 240, unit: "ml" },
       { name: "Lemon juice", amount: 1, unit: "lemon" },
-      { name: "Matcha powder", amount: 0.5, unit: "tsp" },
+      { name: "Matcha powder", amount: 1, unit: "g" },
     ],
     steps: [
       {
@@ -631,12 +631,12 @@ export const recipes: Recipe[] = [
     scaleUnit: "batch",
     scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
     ingredients: [
-      { name: "Apple cider vinegar", amount: 1, unit: "tbsp" },
-      { name: "Pineapple chunks", amount: 0.5, unit: "cup" },
+      { name: "Apple cider vinegar", amount: 15, unit: "ml" },
+      { name: "Pineapple chunks", amount: 80, unit: "g" },
       { name: "Lemon juice", amount: 1, unit: "lemon" },
-      { name: "Fresh ginger root", amount: 1, unit: "to 2 inches" },
-      { name: "Ground cinnamon", amount: 0.25, unit: "tsp" },
-      { name: "Honey", amount: 1, unit: "tsp, optional" },
+      { name: "Fresh ginger root", amount: 2.5, unit: "to 5 cm" },
+      { name: "Ground cinnamon", amount: 0.7, unit: "g" },
+      { name: "Honey", amount: 5, unit: "ml, optional" },
       { name: "Water", unit: "as needed" },
     ],
     steps: [
