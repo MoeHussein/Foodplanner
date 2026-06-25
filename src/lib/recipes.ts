@@ -19,8 +19,11 @@ export type Recipe = {
   duration: number;
   difficulty: "Easy" | "Medium";
   baseServings: number;
-  chickenGrams: number;
-  macros: {
+  servingLabel?: string;
+  scaleAmount: number;
+  scaleUnit: string;
+  scaleNote: string;
+  macros?: {
     kcal: number;
     protein: number;
     fat: number;
@@ -70,7 +73,9 @@ export const recipes: Recipe[] = [
     duration: 30,
     difficulty: "Easy",
     baseServings: 5,
-    chickenGrams: 1250,
+    scaleAmount: 1250,
+    scaleUnit: "g",
+    scaleNote: "250 g raw chicken per serving",
     macros: { kcal: 400, protein: 56, fat: 8, carbs: 25 },
     ingredients: [
       { name: "Chicken breast, diced", amount: 1250, unit: "g" },
@@ -122,7 +127,9 @@ export const recipes: Recipe[] = [
     duration: 45,
     difficulty: "Easy",
     baseServings: 5,
-    chickenGrams: 1250,
+    scaleAmount: 1250,
+    scaleUnit: "g",
+    scaleNote: "250 g raw chicken per serving",
     macros: { kcal: 370, protein: 54, fat: 12, carbs: 6 },
     ingredients: [
       { name: "Chicken breast, diced", amount: 1250, unit: "g" },
@@ -173,7 +180,9 @@ export const recipes: Recipe[] = [
     duration: 45,
     difficulty: "Medium",
     baseServings: 5,
-    chickenGrams: 1250,
+    scaleAmount: 1250,
+    scaleUnit: "g",
+    scaleNote: "250 g raw chicken per serving",
     macros: { kcal: 520, protein: 52, fat: 28, carbs: 12 },
     ingredients: [
       { name: "Chicken breast, sliced", amount: 1250, unit: "g" },
@@ -234,7 +243,9 @@ export const recipes: Recipe[] = [
     duration: 30,
     difficulty: "Easy",
     baseServings: 5,
-    chickenGrams: 1250,
+    scaleAmount: 1250,
+    scaleUnit: "g",
+    scaleNote: "250 g raw chicken per serving",
     macros: { kcal: 360, protein: 53, fat: 13, carbs: 10 },
     ingredients: [
       { name: "Chicken breast, strips", amount: 1250, unit: "g" },
@@ -279,6 +290,371 @@ export const recipes: Recipe[] = [
     ],
     optional:
       "Char tortillas in the same dry pan while the chicken rests, or swap some chili powder for chipotle.",
+  },
+  {
+    slug: "lemon-ginger-anti-inflammatory-shot",
+    title: "Lemon ginger anti-inflammatory shot",
+    shortTitle: "Lemon ginger",
+    description:
+      "A bright citrus wellness shot blended with fresh ginger, turmeric, and black pepper.",
+    type: "Wellness shot",
+    foodType: "juices",
+    duration: 10,
+    difficulty: "Easy",
+    baseServings: 1,
+    servingLabel: "batch",
+    scaleAmount: 1,
+    scaleUnit: "batch",
+    scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
+    ingredients: [
+      { name: "Oranges", amount: 2, unit: "" },
+      { name: "Lemons", amount: 2, unit: "" },
+      { name: "Fresh ginger root", amount: 5, unit: "inches" },
+      { name: "Fresh turmeric root", amount: 2, unit: "to 3 inches" },
+      { name: "Black pepper", amount: 0.25, unit: "tsp" },
+      { name: "Coconut water", unit: "as needed" },
+    ],
+    steps: [
+      {
+        title: "Blend until smooth",
+        body: "Blend all ingredients with enough coconut water to keep the mixture moving.",
+      },
+      {
+        title: "Strain",
+        body: "Pour through a fine-mesh sieve, pressing gently to extract the liquid.",
+      },
+      {
+        title: "Chill",
+        body: "Transfer to an airtight glass container and refrigerate for up to 7 days.",
+      },
+    ],
+    optional:
+      "Wear gloves when handling fresh turmeric—it stains hands and surfaces easily.",
+  },
+  {
+    slug: "pineapple-mint-ginger-shot",
+    title: "Pineapple mint ginger shot",
+    shortTitle: "Pineapple mint",
+    description:
+      "A tropical pineapple shot sharpened with lemon and ginger and cooled with fresh mint.",
+    type: "Wellness shot",
+    foodType: "juices",
+    duration: 10,
+    difficulty: "Easy",
+    baseServings: 1,
+    servingLabel: "batch",
+    scaleAmount: 1,
+    scaleUnit: "batch",
+    scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
+    ingredients: [
+      { name: "Pineapple chunks", amount: 4, unit: "cups" },
+      { name: "Fresh mint leaves", amount: 0.5, unit: "cup" },
+      { name: "Lemon", amount: 1, unit: "" },
+      { name: "Fresh ginger root", amount: 5, unit: "inches" },
+      { name: "Coconut water", unit: "as needed" },
+    ],
+    steps: [
+      {
+        title: "Blend",
+        body: "Blend all ingredients with enough coconut water to keep the mixture moving.",
+      },
+      {
+        title: "Strain well",
+        body: "Pass the mixture through a fine-mesh sieve for a smoother shot.",
+      },
+      {
+        title: "Chill",
+        body: "Transfer to an airtight glass container and refrigerate for up to 5–7 days.",
+      },
+    ],
+    optional:
+      "Reserve a few mint leaves and add them after blending for a fresher herbal aroma.",
+  },
+  {
+    slug: "berry-beet-energy-shot",
+    title: "Berry beet energy shot",
+    shortTitle: "Berry beet",
+    description:
+      "An earthy-sweet blend of beet, strawberry, orange, and lemon.",
+    type: "Wellness shot",
+    foodType: "juices",
+    duration: 10,
+    difficulty: "Easy",
+    baseServings: 1,
+    servingLabel: "batch",
+    scaleAmount: 1,
+    scaleUnit: "batch",
+    scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
+    ingredients: [
+      { name: "Beets", amount: 2, unit: "" },
+      { name: "Strawberries", amount: 2, unit: "cups" },
+      { name: "Lemon", amount: 1, unit: "" },
+      { name: "Orange", amount: 1, unit: "" },
+      { name: "Water", unit: "as needed" },
+      { name: "Ashwagandha extract", unit: "optional" },
+    ],
+    steps: [
+      {
+        title: "Blend",
+        body: "Blend the beets, strawberries, lemon, and orange with enough water to reach a smooth consistency.",
+      },
+      {
+        title: "Strain",
+        body: "Pass the mixture through a fine-mesh sieve.",
+      },
+      {
+        title: "Add the optional extract",
+        body: "Stir in ashwagandha extract only if you choose to use it, following its package directions.",
+      },
+      {
+        title: "Chill",
+        body: "Transfer to an airtight glass container and refrigerate for up to 5 days.",
+      },
+    ],
+    optional:
+      "Ashwagandha can interact with medications and is not suitable for everyone; check with a clinician before adding it.",
+  },
+  {
+    slug: "turmeric-wellness-shot",
+    title: "Turmeric wellness shot",
+    shortTitle: "Turmeric",
+    description:
+      "A vivid carrot, orange, lemon, ginger, and turmeric blend with a clean citrus finish.",
+    type: "Wellness shot",
+    foodType: "juices",
+    duration: 10,
+    difficulty: "Easy",
+    baseServings: 1,
+    servingLabel: "batch",
+    scaleAmount: 1,
+    scaleUnit: "batch",
+    scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
+    ingredients: [
+      { name: "Orange", amount: 1, unit: "" },
+      { name: "Lemon", amount: 1, unit: "" },
+      { name: "Carrots", amount: 3, unit: "" },
+      { name: "Fresh ginger root", amount: 2, unit: "inches" },
+      { name: "Fresh turmeric root", amount: 2, unit: "inches" },
+      { name: "Water", unit: "as needed" },
+    ],
+    steps: [
+      {
+        title: "Blend",
+        body: "Blend all ingredients with enough water to keep the mixture moving.",
+      },
+      {
+        title: "Strain well",
+        body: "Pass through a fine-mesh sieve and press gently to extract the liquid.",
+      },
+      {
+        title: "Chill",
+        body: "Transfer to an airtight glass container and refrigerate for up to 7 days.",
+      },
+    ],
+    optional:
+      "Add a small pinch of black pepper before blending if you enjoy a peppery finish.",
+  },
+  {
+    slug: "ginger-turmeric-wellness-shot",
+    title: "Ginger turmeric wellness shot",
+    shortTitle: "Ginger turmeric",
+    description:
+      "A concentrated ginger-forward shot balanced with citrus and fresh turmeric.",
+    type: "Wellness shot",
+    foodType: "juices",
+    duration: 10,
+    difficulty: "Easy",
+    baseServings: 1,
+    servingLabel: "batch",
+    scaleAmount: 1,
+    scaleUnit: "batch",
+    scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
+    ingredients: [
+      { name: "Water", amount: 1, unit: "cup" },
+      { name: "Lemons", amount: 2, unit: "" },
+      { name: "Orange", amount: 1, unit: "" },
+      { name: "Fresh ginger root", amount: 1, unit: "lb" },
+      { name: "Fresh turmeric root", amount: 2, unit: "inches" },
+    ],
+    steps: [
+      {
+        title: "Blend",
+        body: "Blend all ingredients with the water until thoroughly broken down.",
+      },
+      {
+        title: "Strain well",
+        body: "Pass through a fine-mesh sieve, pressing gently to extract the liquid.",
+      },
+      {
+        title: "Chill",
+        body: "Transfer to an airtight glass container and refrigerate for up to 7 days.",
+      },
+    ],
+    optional:
+      "This is a particularly concentrated ginger recipe; dilute an individual serving with water if preferred.",
+  },
+  {
+    slug: "fire-cider-wellness-shot",
+    title: "Fire cider wellness shot",
+    shortTitle: "Fire cider",
+    description:
+      "A punchy pineapple and apple cider vinegar shot with garlic, ginger, turmeric, cayenne, and lemon.",
+    type: "Wellness shot",
+    foodType: "juices",
+    duration: 10,
+    difficulty: "Easy",
+    baseServings: 1,
+    servingLabel: "batch",
+    scaleAmount: 1,
+    scaleUnit: "batch",
+    scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
+    ingredients: [
+      { name: "Apple cider vinegar", amount: 0.5, unit: "cup" },
+      { name: "Pineapple chunks", amount: 1, unit: "cup" },
+      { name: "Garlic", amount: 2, unit: "to 3 cloves" },
+      { name: "Fresh ginger root", amount: 2, unit: "inches" },
+      { name: "Fresh turmeric root", amount: 2, unit: "inches" },
+      { name: "Cayenne pepper", amount: 0.25, unit: "tsp" },
+      { name: "Lemon juice", amount: 1, unit: "tbsp" },
+    ],
+    steps: [
+      {
+        title: "Blend",
+        body: "Blend all ingredients until smooth.",
+      },
+      {
+        title: "Strain well",
+        body: "Pass through a fine-mesh sieve for a smoother shot.",
+      },
+      {
+        title: "Chill",
+        body: "Transfer to an airtight glass container and refrigerate for up to 4 weeks.",
+      },
+    ],
+    optional:
+      "The vinegar and cayenne are intense; dilute an individual serving with water if needed.",
+  },
+  {
+    slug: "beet-wellness-shot",
+    title: "Beet wellness shot",
+    shortTitle: "Beet",
+    description:
+      "A simple ruby-red blend of beet, orange, lemon, and fresh ginger.",
+    type: "Wellness shot",
+    foodType: "juices",
+    duration: 10,
+    difficulty: "Easy",
+    baseServings: 1,
+    servingLabel: "batch",
+    scaleAmount: 1,
+    scaleUnit: "batch",
+    scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
+    ingredients: [
+      { name: "Beets", amount: 2, unit: "" },
+      { name: "Orange", amount: 1, unit: "" },
+      { name: "Lemon", amount: 1, unit: "" },
+      { name: "Fresh ginger root", amount: 2, unit: "inches" },
+      { name: "Water", unit: "as needed" },
+    ],
+    steps: [
+      {
+        title: "Blend",
+        body: "Blend all ingredients with enough water to reach a smooth consistency.",
+      },
+      {
+        title: "Strain well",
+        body: "Pass the mixture through a fine-mesh sieve.",
+      },
+      {
+        title: "Chill",
+        body: "Transfer to an airtight glass container and refrigerate for up to 5 days.",
+      },
+    ],
+    optional:
+      "Peel the beets for a cleaner flavor, or leave the scrubbed skin on for less prep.",
+  },
+  {
+    slug: "energy-boosting-green-wellness-shot",
+    title: "Energy boosting green wellness shot",
+    shortTitle: "Green wellness",
+    description:
+      "A fresh green blend of apple, celery, cucumber, parsley, spinach, lemon, and matcha.",
+    type: "Wellness shot",
+    foodType: "juices",
+    duration: 10,
+    difficulty: "Easy",
+    baseServings: 1,
+    servingLabel: "batch",
+    scaleAmount: 1,
+    scaleUnit: "batch",
+    scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
+    ingredients: [
+      { name: "Green apple", amount: 1, unit: "" },
+      { name: "Celery stalks", amount: 3, unit: "" },
+      { name: "Cucumber", amount: 1, unit: "" },
+      { name: "Fresh parsley", amount: 0.5, unit: "cup" },
+      { name: "Spinach", amount: 1, unit: "cup" },
+      { name: "Coconut water", amount: 1, unit: "cup" },
+      { name: "Lemon juice", amount: 1, unit: "lemon" },
+      { name: "Matcha powder", amount: 0.5, unit: "tsp" },
+    ],
+    steps: [
+      {
+        title: "Blend",
+        body: "Blend all ingredients until smooth.",
+      },
+      {
+        title: "Strain if desired",
+        body: "Drink as blended, or pass through a fine-mesh sieve for a smoother texture.",
+      },
+      {
+        title: "Chill",
+        body: "Transfer to an airtight glass container and refrigerate for up to 3–5 days.",
+      },
+    ],
+    optional:
+      "Matcha contains caffeine. Leave it out if you are sensitive to caffeine or serving this later in the day.",
+  },
+  {
+    slug: "apple-cider-vinegar-wellness-shot",
+    title: "Apple cider vinegar wellness shot",
+    shortTitle: "Apple cider vinegar",
+    description:
+      "A sweet-tart pineapple and lemon shot warmed with ginger and cinnamon.",
+    type: "Wellness shot",
+    foodType: "juices",
+    duration: 10,
+    difficulty: "Easy",
+    baseServings: 1,
+    servingLabel: "batch",
+    scaleAmount: 1,
+    scaleUnit: "batch",
+    scaleNote: "Serve in 30–60 ml portions and shake well before drinking.",
+    ingredients: [
+      { name: "Apple cider vinegar", amount: 1, unit: "tbsp" },
+      { name: "Pineapple chunks", amount: 0.5, unit: "cup" },
+      { name: "Lemon juice", amount: 1, unit: "lemon" },
+      { name: "Fresh ginger root", amount: 1, unit: "to 2 inches" },
+      { name: "Ground cinnamon", amount: 0.25, unit: "tsp" },
+      { name: "Honey", amount: 1, unit: "tsp, optional" },
+      { name: "Water", unit: "as needed" },
+    ],
+    steps: [
+      {
+        title: "Blend",
+        body: "Blend all ingredients with enough water to reach a smooth consistency.",
+      },
+      {
+        title: "Strain well",
+        body: "Pass the mixture through a fine-mesh sieve.",
+      },
+      {
+        title: "Chill",
+        body: "Transfer to an airtight glass container and refrigerate for up to 7 days.",
+      },
+    ],
+    optional:
+      "Dilute the shot before drinking if the vinegar tastes too sharp, and avoid sipping it slowly to limit acid exposure to teeth.",
   },
 ];
 

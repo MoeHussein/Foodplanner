@@ -40,7 +40,11 @@ export default async function RecipePage({ params }: RecipePageProps) {
   }
 
   const relatedRecipes = recipes
-    .filter((candidate) => candidate.slug !== recipe.slug)
+    .filter(
+      (candidate) =>
+        candidate.slug !== recipe.slug &&
+        candidate.foodType === recipe.foodType,
+    )
     .slice(0, 2);
 
   return (
@@ -66,28 +70,34 @@ export default async function RecipePage({ params }: RecipePageProps) {
               </span>
               <span>
                 <Users aria-hidden="true" size={17} />
-                {recipe.baseServings} servings
+                {recipe.baseServings} {recipe.servingLabel ?? "serving"}
+                {recipe.baseServings === 1 ? "" : "s"}
               </span>
             </div>
           </div>
         </header>
 
         <div className="container">
-          <section className="macro-grid" aria-label="Nutrition per serving">
-            <div><strong>{recipe.macros.kcal}</strong><span>kcal</span></div>
-            <div><strong>{recipe.macros.protein}g</strong><span>protein</span></div>
-            <div><strong>{recipe.macros.fat}g</strong><span>fat</span></div>
-            <div><strong>{recipe.macros.carbs}g</strong><span>carbs</span></div>
-          </section>
+          {recipe.macros ? (
+            <section className="macro-grid" aria-label="Nutrition per serving">
+              <div><strong>{recipe.macros.kcal}</strong><span>kcal</span></div>
+              <div><strong>{recipe.macros.protein}g</strong><span>protein</span></div>
+              <div><strong>{recipe.macros.fat}g</strong><span>fat</span></div>
+              <div><strong>{recipe.macros.carbs}g</strong><span>carbs</span></div>
+            </section>
+          ) : null}
 
           <div className="recipe-layout">
             <aside className="recipe-layout__ingredients">
               <div className="recipe-sidebar">
                 <IngredientScaler
                   baseServings={recipe.baseServings}
-                  chickenGrams={recipe.chickenGrams}
                   ingredients={recipe.ingredients}
                   recipeTitle={recipe.title}
+                  scaleAmount={recipe.scaleAmount}
+                  scaleUnit={recipe.scaleUnit}
+                  scaleNote={recipe.scaleNote}
+                  servingLabel={recipe.servingLabel}
                 />
                 <RecipeNotes recipeSlug={recipe.slug} />
               </div>
@@ -95,7 +105,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
 
             <section className="method" aria-labelledby="method-heading">
               <p className="eyebrow">Method</p>
-              <h2 id="method-heading">Cook it step by step</h2>
+              <h2 id="method-heading">Make it step by step</h2>
               <ol className="step-list">
                 {recipe.steps.map((step, index) => (
                   <li className="step-card" key={step.title}>
@@ -123,7 +133,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
           <div className="section-heading">
             <div>
               <p className="eyebrow">Keep cooking</p>
-              <h2 id="related-heading">More chicken recipes</h2>
+              <h2 id="related-heading">More recipes</h2>
             </div>
             <Link className="text-link" href="/#recipes">
               View all

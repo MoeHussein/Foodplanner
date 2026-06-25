@@ -23,7 +23,11 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
             <Clock3 aria-hidden="true" size={15} />
             {recipe.duration} min
           </span>
-          <span>{recipe.macros.protein}g protein</span>
+          <span>
+            {recipe.macros
+              ? `${recipe.macros.protein}g protein`
+              : `${recipe.baseServings} ${recipe.servingLabel ?? "serving"}${recipe.baseServings === 1 ? "" : "s"}`}
+          </span>
         </div>
       </Link>
     </article>

@@ -8,7 +8,10 @@ type IngredientScalerProps = {
   recipeTitle: string;
   ingredients: Ingredient[];
   baseServings: number;
-  chickenGrams: number;
+  servingLabel?: string;
+  scaleAmount: number;
+  scaleUnit: string;
+  scaleNote: string;
 };
 
 const MIN_SERVINGS = 1;
@@ -24,18 +27,23 @@ export function IngredientScaler({
   recipeTitle,
   ingredients,
   baseServings,
-  chickenGrams,
+  servingLabel = "serving",
+  scaleAmount,
+  scaleUnit,
+  scaleNote,
 }: IngredientScalerProps) {
   const [servings, setServings] = useState(baseServings);
   const ratio = servings / baseServings;
-  const scaledChicken = (chickenGrams / baseServings) * servings;
+  const scaledAmount = (scaleAmount / baseServings) * servings;
+  const servingText =
+    servings === 1 ? servingLabel : `${servingLabel}s`;
 
   return (
     <section className="ingredients-card" aria-labelledby="ingredients-heading">
       <div className="ingredients-card__header">
         <div>
           <p className="eyebrow">Ingredients</p>
-          <h2 id="ingredients-heading">{servings} servings</h2>
+          <h2 id="ingredients-heading">{servings} {servingText}</h2>
         </div>
         <div className="scaler" aria-label={`Scale ${recipeTitle} ingredients`}>
           <button
@@ -50,7 +58,7 @@ export function IngredientScaler({
             <Minus aria-hidden="true" size={18} />
           </button>
           <output className="scaler__value" aria-live="polite">
-            {formatAmount(scaledChicken)}g
+            {formatAmount(scaledAmount)} {scaleUnit}
           </output>
           <button
             type="button"
@@ -72,13 +80,13 @@ export function IngredientScaler({
             <span>{ingredient.name}</span>
             <span className="ingredient-row__amount">
               {typeof ingredient.amount === "number"
-                ? `${formatAmount(ingredient.amount * ratio)}${ingredient.unit}`
+                ? `${formatAmount(ingredient.amount * ratio)} ${ingredient.unit}`
                 : ingredient.unit}
             </span>
           </div>
         ))}
       </div>
-      <p className="ingredients-card__note">250g raw chicken per serving</p>
+      <p className="ingredients-card__note">{scaleNote}</p>
     </section>
   );
 }
