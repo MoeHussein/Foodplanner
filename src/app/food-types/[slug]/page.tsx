@@ -55,11 +55,20 @@ export default async function FoodTypePage({ params }: FoodTypePageProps) {
         className="container listing-content"
         aria-label={`${foodType.label} recipes`}
       >
-        <div className="recipe-grid">
-          {matchingRecipes.map((recipe) => (
-            <RecipeCard key={recipe.slug} recipe={recipe} />
-          ))}
-        </div>
+        {matchingRecipes.length ? (
+          <div className="recipe-grid">
+            {matchingRecipes.map((recipe) => (
+              <RecipeCard key={recipe.slug} recipe={recipe} />
+            ))}
+          </div>
+        ) : (
+          <div className="empty-state">
+            <p>No {foodType.label.toLowerCase()} recipes have been added yet.</p>
+            <Link className="text-link" href="/#recipes">
+              Browse all recipes
+            </Link>
+          </div>
+        )}
       </section>
     </div>
   );

@@ -9,7 +9,7 @@ export default function HomePage() {
       <section className="home-hero">
         <div className="container">
           <p className="eyebrow">Plan less. Cook better.</p>
-          <h1>Chicken recipes built for real weeks.</h1>
+          <h1>Practical recipes built for real weeks.</h1>
           <p className="home-hero__intro">
             Clear steps, adjustable quantities, and high-protein dinners that
             are easy to return to.

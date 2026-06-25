@@ -44,6 +44,18 @@ export const foodTypes: FoodType[] = [
     description:
       "Recipes made with boneless chicken breast or thigh, cut for quick and even cooking.",
   },
+  {
+    slug: "ground-meat",
+    label: "Ground meat",
+    description:
+      "Recipes built around ground beef, lamb, chicken, or turkey for fast, versatile meals.",
+  },
+  {
+    slug: "juices",
+    label: "Juices",
+    description:
+      "Fresh fruit and vegetable juice recipes for simple, refreshing drinks.",
+  },
 ];
 
 export const recipes: Recipe[] = [
